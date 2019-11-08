@@ -79,11 +79,15 @@ namespace nkg {
         }
     }
 
-    void CapstoneEngine::Option(cs_opt_type Type, size_t Value) {
+    void CapstoneEngine::Option(cs_opt_type Type, cs_opt_value Value) {
         auto err = cs_option(Get(), Type, Value);
         if (err != CS_ERR_OK) {
             throw CapstoneError(NKG_CURRENT_SOURCE_FILE(), NKG_CURRENT_SOURCE_LINE(), err, TEXT("cs_option failed."));
         }
+    }
+
+    const char* CapstoneEngine::GetRegisterName(unsigned int reg_id) const noexcept {
+        return cs_reg_name(Get(), reg_id);
     }
 
     [[nodiscard]]
